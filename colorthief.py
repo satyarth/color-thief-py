@@ -13,6 +13,7 @@ __version__ = '0.2'
 import math
 
 from PIL import Image
+from colorsys import rgb_to_hsv
 
 
 class cached_property(object):
@@ -69,7 +70,7 @@ class ColorThief(object):
             r, g, b, a = pixels[i]
             # If pixel is mostly opaque and not white
             if a >= 125:
-                if not (r > 250 and g > 250 and b > 250):
+                if rgb_to_hsv(r/255,g/255,b/255)[1] > 0.3:
                     valid_pixels.append((r, g, b))
 
         # Send array to quantize function which clusters values
