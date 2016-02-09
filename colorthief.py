@@ -77,7 +77,8 @@ class ColorThief(object):
             r, g, b, a = pixels[i]
             # If pixel is mostly opaque and not white
             if a >= 125:
-                if rgb_to_hsv(r/255,g/255,b/255)[1] > 0.3:
+                hsv = rgb_to_hsv(r/255,g/255,b/255)
+                if hsv[1] > 0.4 and hsv[2] > 0.25 and hsv[2] < 0.85:
                     valid_pixels.append((r, g, b))
 
         # Send array to quantize function which clusters values
