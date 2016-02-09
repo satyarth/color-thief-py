@@ -27,6 +27,13 @@ class cached_property(object):
         res = instance.__dict__[self.func.__name__] = self.func(instance)
         return res
 
+class QuantizationError(Exception):
+    def __init__(self, msg):
+        print(msg)
+
+class ThisShouldntHappenError(Exception):
+    def __init__(self, msg):
+        print(msg)
 
 class ColorThief(object):
     """Color thief main class."""
@@ -214,9 +221,9 @@ class MMCQ(object):
         :param max_color: max number of colors
         """
         if not pixels:
-            raise Exception('Empty pixels when quantize.')
+            raise QuantizationError('Empty pixels when quantize.')
         if max_color < 2 or max_color > 256:
-            raise Exception('Wrong number of max colors when quantize.')
+            raise ThisShouldntHappenError('Wrong number of max colors when quantize.')
 
         histo = MMCQ.get_histo(pixels)
 
